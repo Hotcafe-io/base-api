@@ -6,9 +6,9 @@ import { UserResponse } from "../types";
 
 export async function register(req: Request, res: Response): Promise<void> {
     try {
-        const { email, password, name } = req.body;
+        const { email, password, name, phone } = req.body;
 
-        if (!name || !email || !password) {
+        if (!name || !email || !password || !phone) {
             res.status(400).json({ error: "All fields are required" });
             return;
         }
@@ -20,7 +20,7 @@ export async function register(req: Request, res: Response): Promise<void> {
             return;
         }
 
-        await userService.register(name, email, password);
+        await userService.register(name, email, password, phone);
 
         res.status(201).json({ message: "User registered successfully" });
     } catch (err: any) {

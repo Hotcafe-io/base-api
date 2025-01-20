@@ -12,18 +12,22 @@ class User {
         }
         return User.instance;
     }
-    
-    public hasPermission(user: IUser, permission: Permission[]): boolean {
-        return (
-            user.permissions.includes(Permission.MAX) || permission.every((p) => user.permissions.includes(p))
-        );
+
+    public async validateEmail(email: string): Promise<boolean> {
+        return !!(await UserModel.countDocuments({ email }));
+    }
+
+    public async validatePhoneNumber(phoneNumber: string): Promise<boolean> {
+        return !!(await UserModel.countDocuments({ phoneNumber }));
     }
 
     public async getUser(email: string, password: string): Promise<IUser | null> {
         const user = await UserModel.findOne({ email }).lean();
+
         if (!user) return null;
 
-        const isPasswordValid = await this.verifyPassword(password, user.password);
+        const isPasswordValid = await this.verifyPassword(password, user.password!);
+
         if (!isPasswordValid) return null;
 
         return await UserModel.findOne({
@@ -41,11 +45,12 @@ class User {
         return await bcrypt.hash(password, salt);
     }
 
-    public async register(name: string, email: string, password: string): Promise<IUser | null> {
+    public async register(name: string, email: string, password: string, phoneNumber: string): Promise<IUser | null> {
         return await UserModel.create({
             name,
             email,
             password: await this.hashPassword(password),
+            phone: phoneNumber,
         });
     }
 

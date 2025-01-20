@@ -15,9 +15,12 @@ async function startServer() {
 
 	//middlewares
 	app.use(allowCors);
-
 	app.use(express.json());
 	app.use(cookieParser);
+	app.use((req, res, next) => {
+		console.log(`Request made to: ${req.url}`);
+		next();
+	});
 
 	app.use(router);
 

@@ -6,6 +6,8 @@ export enum SuccessMessage {
 }
 
 export enum ErrorMessage {
+    PHONE_ALREADY_EXISTS = "Phone number already exists",
+    EMAIL_ALREADY_EXISTS = "Email already exists",
     INTERNAL_SERVER_ERROR = "Internal server error",
     UNAUTHORIZED = "Unauthorized",
     FORBIDDEN = "Forbidden",

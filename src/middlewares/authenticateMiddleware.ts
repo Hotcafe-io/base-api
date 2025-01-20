@@ -4,7 +4,6 @@ import {
     userService
 } from "../services";
 import { UserResponse } from "../types";
-import { Permission } from "../../models";
 import { COOKIE_OPTIONS } from "../utils";
 
 export async function authenticate(
@@ -69,26 +68,4 @@ export async function isAuthenticated(
             message: UserResponse.ErrorMessage.INTERNAL_SERVER_ERROR,
         });
     }
-}
-
-export async function permissions(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-    permissions: Permission[],
-) {
-    const { user } = req;
-    if (!user) {
-        res.status(401).json({
-            message: UserResponse.ErrorMessage.UNAUTHORIZED,
-        });
-        return;
-    }
-
-    if (userService.hasPermission(user, permissions)) {
-        next();
-        return;
-    }
-
-    res.status(403).json({ message: UserResponse.ErrorMessage.FORBIDDEN });
 }
