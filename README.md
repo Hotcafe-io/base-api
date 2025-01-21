@@ -1,4 +1,4 @@
-# seu-gestor-api
+# base-api
 
 To install dependencies:
 
