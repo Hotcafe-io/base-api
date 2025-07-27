@@ -26,7 +26,7 @@ Agora **cada arquivo `.ts` dentro de `src/api/...` é uma rota**. O nome e camin
 import { Request, Response } from "express";
 import { IFunctionDefinition } from "@/types/base";
 
-export async function fn(req: Request, res: Response): Promise<void> {
+export async function postfn(req: Request, res: Response): Promise<void> {
   try {
     const {} = req.body;
 
@@ -41,8 +41,7 @@ export async function fn(req: Request, res: Response): Promise<void> {
 
 export const functions: IFunctionDefinition[] = [
   {
-    method: "POST",
-    handler: fn,
+    handler: postfn,
     middlewares: [],
     isPublic: true,
   },
@@ -55,8 +54,7 @@ export const functions: IFunctionDefinition[] = [
 
 Todo arquivo de rota deve exportar um array `functions` com objetos assim:
 
-- `method`: `"GET"`, `"POST"`, `"PUT"`, `"DELETE"`
-- `handler`: função async
+- `handler`: função async que seu nome obrigatoriamente deve começar com `post`, `get`, `put`, `delete` ou `patch` (ex: `postfn`, `getUser`, etc.)
 - `middlewares`: array de middlewares (se quiser)
 - `isPublic`: boolean
 
