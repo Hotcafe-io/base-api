@@ -23,8 +23,6 @@ function getRouteModuleErrors(module: any): string[] {
 
     if (Array.isArray(module?.functions)) {
         module.functions.forEach((fn: any, idx: number) => {
-            if (!["GET", "POST", "PUT", "DELETE"].includes(fn.method))
-                errors.push(`functions[${idx}].method is invalid or missing.`);
             if (typeof fn.handler !== "function")
                 errors.push(`functions[${idx}].handler is missing or not a function.`);
             if (typeof fn.isPublic !== "boolean")
