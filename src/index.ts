@@ -3,9 +3,9 @@ import "express-async-errors";
 import express from "express";
 import http from "http";
 
-import { connectDatabase } from "./config";
-import { cookieParser, allowCors } from "./middlewares";
-import { loadRoutes, RouteDefinition } from "./loader";
+import { connectDatabase } from "@/config";
+import { cookieParser, allowCors } from "@/middlewares";
+import { loadRoutes, RouteDefinition } from "@/loader";
 
 const expectedEnvVars = ["MONGO_URL", "PORT"];
 

@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from "express";
 import {
     jwtService,
     userService
-} from "../services";
-import { UserResponse } from "../types";
-import { COOKIE_OPTIONS } from "../utils";
+} from "@/services";
+import { UserResponse } from "@/types";
+import { COOKIE_OPTIONS } from "@/utils";
 
 export async function authenticate(
     req: Request,

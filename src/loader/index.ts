@@ -1,5 +1,4 @@
 import { readdirSync } from "fs";
-import { Router } from "express";
 import path from "path";
 
 import express from "express";

@@ -1,5 +1,5 @@
 export * as UserResponse from "./userResponse";
-import { IUser } from "../../models";
+import { IUser } from "@/models";
 
 declare global {
     namespace Express {

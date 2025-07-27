@@ -1,4 +1,4 @@
-import { IUser, UserModel, Permission } from "../../models";
+import { IUser, UserModel, Permission } from "@/models";
 import bcrypt from "bcrypt";
 
 class User {
