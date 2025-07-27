@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { IFunctionDefinition, methodType } from "@/types/base";
+import { IFunctionDefinition } from "@/types/base";
 
 // Example function with method in name
 export async function postFn(req: Request, res: Response): Promise<void> {
