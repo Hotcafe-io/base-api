@@ -4,10 +4,26 @@ import express from "express";
 import http from "http";
 
 import { connectDatabase } from "./config";
-import { router } from "./routes";
 import { cookieParser, allowCors } from "./middlewares";
+import { loadRoutes, RouteDefinition } from "./loader";
+
+const expectedEnvVars = ["MONGO_URL", "PORT"];
+
+expectedEnvVars.forEach((envVar) => {
+	if (!process.env[envVar]) {
+		throw new Error(`Environment variable ${envVar} is not set.`);
+	}
+});
+
+const appRoutes = new Map<string, RouteDefinition>();
 
 async function startServer() {
+	const routes = loadRoutes();
+
+	routes.forEach(route => {
+		appRoutes.set(route.path, route);
+	});
+
 	await connectDatabase();
 
 	const app = express();
@@ -21,7 +37,26 @@ async function startServer() {
 		next();
 	});
 
-	app.use(router);
+	app.use((req, res, next) => {
+		const route = appRoutes.get(req.url);
+		const method = req.method.toUpperCase();
+
+		if (route) {
+			const fn = route.functions.find(f => f.method === method);
+
+			for (const middleware of fn?.middlewares || []) {
+				middleware(req, res, next);
+			}
+
+			if (fn) {
+				fn.handler(req, res);
+			} else {
+				res.status(405).send({ error: "Method not allowed" });
+			}
+		} else {
+			res.status(404).send({ error: "Route not found" });
+		}
+	})
 
 	const server = http.createServer(app);
 
