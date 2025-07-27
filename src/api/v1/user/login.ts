@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { jwtService, userService } from "@/services";
 import { UserResponse } from "@/types";
 import { COOKIE_OPTIONS } from "@/utils";
-import { IFunctionDefinition } from "@/loader";
+import { IFunctionDefinition } from "@/config/loader";
 
 export async function login(req: Request, res: Response): Promise<void> {
     try {

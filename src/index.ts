@@ -5,7 +5,7 @@ import http from "http";
 
 import { loadEnvironments, connectDatabase } from "@/config";
 import { cookieParser, allowCors } from "@/middlewares";
-import { loadRoutes, RouteDefinition } from "@/loader";
+import { loadRoutes, RouteDefinition } from "@/config/loader";
 
 loadEnvironments()
 

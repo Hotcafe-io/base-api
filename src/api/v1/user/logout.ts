@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { COOKIE_OPTIONS } from "@/utils";
 import { UserResponse } from "@/types";
-import { IFunctionDefinition } from "@/loader";
+import { IFunctionDefinition } from "@/config/loader";
 
 export async function logout(req: Request, res: Response): Promise<void> {
     try {
