@@ -31,7 +31,6 @@ export async function postlogin(req: Request, res: Response): Promise<void> {
 
 export const functions: IFunctionDefinition[] = [
     {
-        method: "POST",
         handler: postlogin,
         middlewares: [],
         isPublic: true,

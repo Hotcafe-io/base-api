@@ -17,7 +17,6 @@ export async function logout(req: Request, res: Response): Promise<void> {
 
 export const functions: IFunctionDefinition[] = [
     {
-        method: "POST",
         handler: logout,
         middlewares: [],
         isPublic: true,
