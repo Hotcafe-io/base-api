@@ -61,7 +61,7 @@ export function loadRoutes(): RouteDefinition[] {
         for (const fn of routeModule.functions) {
             const middlewares = fn.middlewares || [];
             const route: RouteDefinition = {
-                path: filePath,
+                path: filePath.replace(routesDir, "").replace(/\\/g, "/").replace(/\.ts$/, ""),
                 functions: [
                     {
                         method: fn.method,

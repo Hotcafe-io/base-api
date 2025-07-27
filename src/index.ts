@@ -64,6 +64,14 @@ async function startServer() {
 
 	server.listen(PORT, () => {
 		console.log(`Server running on port ${PORT}`);
+
+		console.log(`Available routes:`);
+		appRoutes.forEach((route, path) => {
+			console.log(`- ${path}`);
+			route.functions.forEach(fn => {
+				console.log(`  - ${fn.method} ${path}`);
+			});
+		});
 	});
 }
 
