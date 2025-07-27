@@ -1,3 +1,2 @@
-import { connectDatabase } from "./database";
-
-export { connectDatabase };
+export * from "./database"
+export * from "./envs";

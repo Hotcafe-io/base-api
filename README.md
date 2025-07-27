@@ -90,7 +90,7 @@ Tudo usa alias via `@`, configurado no `tsconfig.json`:
 
 ## 🌍 Variáveis de Ambiente
 
-Todas as envs devem ser registradas em `src/index.ts`:
+Todas as envs devem ser registradas em `src/config/envs.ts`:
 
 ```ts
 const expectedEnvVars = ["MONGO_URL", "PORT", "JWT_SECRET"];

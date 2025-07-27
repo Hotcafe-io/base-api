@@ -3,17 +3,11 @@ import "express-async-errors";
 import express from "express";
 import http from "http";
 
-import { connectDatabase } from "@/config";
+import { loadEnvironments, connectDatabase } from "@/config";
 import { cookieParser, allowCors } from "@/middlewares";
 import { loadRoutes, RouteDefinition } from "@/loader";
 
-const expectedEnvVars = ["MONGO_URL", "PORT", "JWT_SECRET"];
-
-expectedEnvVars.forEach((envVar) => {
-	if (!process.env[envVar]) {
-		throw new Error(`Environment variable ${envVar} is not set.`);
-	}
-});
+loadEnvironments()
 
 const appRoutes = new Map<string, RouteDefinition>();
 
