@@ -7,7 +7,7 @@ import { connectDatabase } from "@/config";
 import { cookieParser, allowCors } from "@/middlewares";
 import { loadRoutes, RouteDefinition } from "@/loader";
 
-const expectedEnvVars = ["MONGO_URL", "PORT"];
+const expectedEnvVars = ["MONGO_URL", "PORT", "JWT_SECRET"];
 
 expectedEnvVars.forEach((envVar) => {
 	if (!process.env[envVar]) {
