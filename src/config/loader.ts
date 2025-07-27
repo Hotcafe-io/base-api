@@ -2,9 +2,10 @@ import { readdirSync } from "fs";
 import path from "path";
 
 import express from "express";
+import { methodType } from "@/types/base";
 
 export interface IFunctionDefinition {
-    method: "GET" | "POST" | "PUT" | "DELETE";
+    method: methodType;
     handler: (req: express.Request, res: express.Response) => Promise<void>;
     middlewares?: express.RequestHandler[];
     isPublic: boolean;
@@ -53,17 +54,29 @@ export function loadRoutes(): RouteDefinition[] {
 
     for (const filePath of routeFiles) {
         const routeModule = require(filePath);
+        const routeName = filePath.replace(routesDir, "").replace(/\\/g, "/").replace(/\.ts$/, "");
         const errors = getRouteModuleErrors(routeModule);
         if (errors.length > 0) {
             throw new Error(`Route file ${filePath} does not export a valid route definition:\n${errors.join("\n")}`);
         }
         for (const fn of routeModule.functions) {
+            // Utility to extract method from function name
+            function getMethodFromFunctionName(fn: Function): methodType {
+                const match = fn.name.match(/^(get|post|put|delete|patch)/i);
+
+                if(!match) {
+                    throw new Error(`Function ${fn.name} does not follow naming convention for method extraction. Path: ${filePath} Route: ${routeName} function name: ${fn.name} should start with 'get', 'post', 'put', 'delete', or 'patch'.`);
+                }
+
+                return match[0].toUpperCase() as methodType;
+            }
+
             const middlewares = fn.middlewares || [];
             const route: RouteDefinition = {
-                path: filePath.replace(routesDir, "").replace(/\\/g, "/").replace(/\.ts$/, ""),
+                path: routeName,
                 functions: [
                     {
-                        method: fn.method,
+                        method: getMethodFromFunctionName(fn.handler),
                         handler: fn.handler,
                         middlewares,
                         isPublic: fn.isPublic,

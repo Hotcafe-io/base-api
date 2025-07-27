@@ -1,10 +1,9 @@
 import { Request, Response } from "express";
-import { IFunctionDefinition } from "@/types/base";
+import { IFunctionDefinition, methodType } from "@/types/base";
 
-export async function fn(req: Request, res: Response): Promise<void> {
+// Example function with method in name
+export async function postFn(req: Request, res: Response): Promise<void> {
     try {
-        const { } = req.body;
-
         res.status(200).json({});
     } catch (err: any) {
         console.error(err.message);
@@ -16,8 +15,7 @@ export async function fn(req: Request, res: Response): Promise<void> {
 
 export const functions: IFunctionDefinition[] = [
     {
-        method: "POST",
-        handler: fn,
+        handler: postFn,
         middlewares: [],
         isPublic: true,
     }

@@ -1,7 +1,8 @@
 import express from "express"
 
+export type methodType = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+
 export interface IFunctionDefinition {
-    method: "GET" | "POST" | "PUT" | "DELETE";
     handler: (req: express.Request, res: express.Response) => Promise<void>;
     middlewares?: express.RequestHandler[];
     isPublic: boolean;
