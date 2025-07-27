@@ -1,5 +1,8 @@
 # 📦 API Base refatorada com snippet `!newroute`
 
+Coisas a fazer ainda:  
+[ ] Atualizar o loader e os requisitos de rota para gerar um CLIENT de API automatico
+
 ## 🧠 Conceito
 
 Agora **cada arquivo `.ts` dentro de `src/api/...` é uma rota**. O nome e caminho da rota são definidos pela **estrutura de pastas**. Não tem mais controller separado: a função já vai direto no arquivo e é exportada com uma estrutura padrão.
