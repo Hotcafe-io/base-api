@@ -18,7 +18,7 @@
 			"    }",
 			"}",
 			"",
-			"export const functions: IFunctionDefinition[] = [",
+			"export const functions: Omit<IFunctionDefinition, \"method\">[] = [",
 			"    {",
 			"        handler: postfn,",
 			"        middlewares: [],",

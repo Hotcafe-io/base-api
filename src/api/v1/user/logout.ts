@@ -15,7 +15,7 @@ export async function postLogout(req: Request, res: Response): Promise<void> {
     }
 }
 
-export const functions: IFunctionDefinition[] = [
+export const functions: Omit<IFunctionDefinition, "method">[] = [
     {
         handler: postLogout,
         middlewares: [],

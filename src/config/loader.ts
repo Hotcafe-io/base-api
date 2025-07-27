@@ -5,6 +5,7 @@ import express from "express";
 import { methodType } from "@/types/base";
 
 export interface IFunctionDefinition {
+    method: methodType;
     handler: (req: express.Request, res: express.Response) => Promise<void>;
     middlewares?: express.RequestHandler[];
     isPublic: boolean;

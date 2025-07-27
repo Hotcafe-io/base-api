@@ -29,7 +29,7 @@ export async function postLogin(req: Request, res: Response): Promise<void> {
     }
 }
 
-export const functions: IFunctionDefinition[] = [
+export const functions: Omit<IFunctionDefinition, "method">[] = [
     {
         handler: postLogin,
         middlewares: [],
