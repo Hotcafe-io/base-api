@@ -3,7 +3,7 @@ import { COOKIE_OPTIONS } from "@/utils";
 import { UserResponse } from "@/types";
 import { IFunctionDefinition } from "@/config/loader";
 
-export async function logout(req: Request, res: Response): Promise<void> {
+export async function postLogout(req: Request, res: Response): Promise<void> {
     try {
         res.cookie("token", "", { ...COOKIE_OPTIONS });
         res.status(200).json({ message: UserResponse.SuccessMessage.LOGOUT });
@@ -17,7 +17,7 @@ export async function logout(req: Request, res: Response): Promise<void> {
 
 export const functions: IFunctionDefinition[] = [
     {
-        handler: logout,
+        handler: postLogout,
         middlewares: [],
         isPublic: true,
     }

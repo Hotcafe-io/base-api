@@ -4,7 +4,7 @@ import { UserResponse } from "@/types";
 import { COOKIE_OPTIONS } from "@/utils";
 import { IFunctionDefinition } from "@/config/loader";
 
-export async function postlogin(req: Request, res: Response): Promise<void> {
+export async function postLogin(req: Request, res: Response): Promise<void> {
     try {
         const { email, password } = req.body;
 
@@ -31,7 +31,7 @@ export async function postlogin(req: Request, res: Response): Promise<void> {
 
 export const functions: IFunctionDefinition[] = [
     {
-        handler: postlogin,
+        handler: postLogin,
         middlewares: [],
         isPublic: true,
     }
