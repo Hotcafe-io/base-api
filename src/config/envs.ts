@@ -2,7 +2,8 @@
 const expectedEnvVars = [
     "MONGO_URL", 
     "PORT", 
-    "JWT_SECRET"
+    "JWT_SECRET",
+    "NODE_ENV"
 ];
 
 export function loadEnvironments() {
