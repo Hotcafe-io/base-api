@@ -2,7 +2,7 @@ import { IFunctionDefinition } from "@/config/loader";
 import { Request, Response, RequestHandler } from "express";
 import { z } from "zod";
 
-export const postReqSchema = z.object({})
+export const postReqSchema = z.object({});
 export const postResSchema = z.object({});
 export const postMiddlewares: RequestHandler[] = [];
 export async function postFn(req: Request, res: Response): Promise<void> {
@@ -72,7 +72,6 @@ export async function deleteBaseData(req: Request, res: Response): Promise<void>
     }
 }
 
-
 export const functions: Omit<IFunctionDefinition, "method">[] = [
     {
         handler: postFn,
@@ -81,7 +80,7 @@ export const functions: Omit<IFunctionDefinition, "method">[] = [
         responseSchema: postResSchema,
     },
     {
-        handler: getFn, 
+        handler: getFn,
         middlewares: getMiddlewares,
         requestSchema: getReqSchema,
         responseSchema: getResSchema,
