@@ -35,6 +35,13 @@ async function startServer() {
 		const route = appRoutes.get(req.url);
 		const method = req.method.toUpperCase();
 
+		if (method === 'OPTIONS') {
+			res.setHeader('Access-Control-Allow-Origin', '*');
+			res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+			res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+			return res.sendStatus(204); // No Content
+		}
+
 		if (route) {
 			const fn = route.functions.find(f => f.method === method);
 
