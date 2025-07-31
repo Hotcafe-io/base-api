@@ -165,7 +165,7 @@ function generateClientLevel(obj: RouteNode, indent = "    "): string {
 
 let indexFileContent = `// Auto-generated API client\nimport axios from "axios";\nimport * as utils from "./types";\n\n`;
 
-indexFileContent += `class ApiServiceClass {\n  private axiosInstance = axios.create({ baseURL: process.env.API_BASE_URL ?? "" });\n\n`;
+indexFileContent += `class ApiServiceClass {\n  private axiosInstance = axios.create({ baseURL: process.env.API_BASE_URL ?? "", withCredentials: true });\n\n`;
 
 for (const [version, routes] of Object.entries(apiStructure)) {
     indexFileContent += `  public readonly ${version} = ${generateClientLevel(routes)};\n`;
