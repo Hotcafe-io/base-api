@@ -52,7 +52,7 @@ export function loadRoutes(): RouteDefinition[] {
 
     for (const filePath of routeFiles) {
         const routeModule = require(filePath);
-        const routeName = filePath.replace(routesDir, "").replace(/\\/g, "/").replace(/\.ts$/, "");
+        const routeName = "/api" + filePath.replace(routesDir, "").replace(/\\/g, "/").replace(/\.ts$/, "");
         const errors = getRouteModuleErrors(routeModule);
         if (errors.length > 0) {
             throw new Error(`Route file ${filePath} does not export a valid route definition:\n${errors.join("\n")}`);
