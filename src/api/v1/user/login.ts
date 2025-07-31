@@ -2,7 +2,20 @@ import { Request, Response } from "express";
 import { jwtService, userService } from "@/services";
 import { UserResponse } from "@/types";
 import { COOKIE_OPTIONS } from "@/utils";
+import { z } from "zod";
 import { IFunctionDefinition } from "@/config/loader";
+
+export const postReqSchema = z.object({
+    email: z.email(),
+    password: z.string().min(6),
+});
+export const postResSchema = z.object({
+    user: z.object({
+        id: z.string(),
+        email: z.email(),
+        name: z.string().optional(),
+    }),
+});
 
 export async function postLogin(req: Request, res: Response): Promise<void> {
     try {
@@ -33,6 +46,7 @@ export const functions: Omit<IFunctionDefinition, "method">[] = [
     {
         handler: postLogin,
         middlewares: [],
-        isPublic: true,
+        requestSchema: postReqSchema,
+        responseSchema: postResSchema,
     }
 ]

@@ -2,6 +2,15 @@ import { Request, Response } from "express";
 import { COOKIE_OPTIONS } from "@/utils";
 import { UserResponse } from "@/types";
 import { IFunctionDefinition } from "@/config/loader";
+import { z } from "zod";
+
+const postReqSchema = z.object({
+    email: z.email(),
+    password: z.string().min(6),
+});
+const postResSchema = z.object({
+    message: z.string(),
+});
 
 export async function postLogout(req: Request, res: Response): Promise<void> {
     try {
@@ -19,6 +28,7 @@ export const functions: Omit<IFunctionDefinition, "method">[] = [
     {
         handler: postLogout,
         middlewares: [],
-        isPublic: true,
+        requestSchema: postReqSchema,
+        responseSchema: postResSchema,
     }
 ]

@@ -8,7 +8,8 @@ export interface IFunctionDefinition {
     method: methodType;
     handler: (req: express.Request, res: express.Response) => Promise<void>;
     middlewares?: express.RequestHandler[];
-    isPublic: boolean;
+    requestSchema: any;
+    responseSchema: any;
 }
 
 export interface RouteDefinition {
@@ -25,8 +26,6 @@ function getRouteModuleErrors(module: any): string[] {
         module.functions.forEach((fn: any, idx: number) => {
             if (typeof fn.handler !== "function")
                 errors.push(`functions[${idx}].handler is missing or not a function.`);
-            if (typeof fn.isPublic !== "boolean")
-                errors.push(`functions[${idx}].isPublic is missing or not a boolean.`);
             if (fn.middlewares && !Array.isArray(fn.middlewares))
                 errors.push(`functions[${idx}].middlewares is present but not an array.`);
         });
@@ -62,7 +61,7 @@ export function loadRoutes(): RouteDefinition[] {
             function getMethodFromFunctionName(fn: Function): methodType {
                 const match = fn.name.match(/^(get|post|put|delete|patch)/i);
 
-                if(!match) {
+                if (!match) {
                     throw new Error(`Function ${fn.name} does not follow naming convention for method extraction. Path: ${filePath} Route: ${routeName} function name: ${fn.name} should start with 'get', 'post', 'put', 'delete', or 'patch'.`);
                 }
 
@@ -77,7 +76,8 @@ export function loadRoutes(): RouteDefinition[] {
                         method: getMethodFromFunctionName(fn.handler),
                         handler: fn.handler,
                         middlewares,
-                        isPublic: fn.isPublic,
+                        requestSchema: fn.requestSchema,
+                        responseSchema: fn.responseSchema,
                     },
                 ],
             };
