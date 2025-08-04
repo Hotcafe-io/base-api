@@ -17,10 +17,6 @@ class User {
         return !!(await UserModel.countDocuments({ email }));
     }
 
-    public async validatePhoneNumber(phoneNumber: string): Promise<boolean> {
-        return !!(await UserModel.countDocuments({ phoneNumber }));
-    }
-
     public async getUser(email: string, password: string): Promise<IUser | null> {
         const user = await UserModel.findOne({ email }).lean();
 
@@ -45,12 +41,11 @@ class User {
         return await bcrypt.hash(password, salt);
     }
 
-    public async register(name: string, email: string, password: string, phoneNumber: string): Promise<IUser | null> {
+    public async register(name: string, email: string, password: string): Promise<IUser | null> {
         return await UserModel.create({
             name,
             email,
-            password: await this.hashPassword(password),
-            phone: phoneNumber,
+            password: await this.hashPassword(password)
         });
     }
 
