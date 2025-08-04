@@ -4,10 +4,7 @@ import { UserResponse } from "@/types";
 import { IFunctionDefinition } from "@/config/loader";
 import { z } from "zod";
 
-const postReqSchema = z.object({
-    email: z.email(),
-    password: z.string().min(6),
-});
+const postReqSchema = z.object();
 const postResSchema = z.object({
     message: z.string(),
 });

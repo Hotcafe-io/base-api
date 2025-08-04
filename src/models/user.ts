@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 
+// Enum with corrected value mapping
 export enum Permission {
     FREE = "FREE",
     USER = "PREMIUM",
@@ -9,33 +10,17 @@ export enum Permission {
 export interface IUser {
     name: string;
     email: string;
-    phone: string;
-    memberSince: number;
-    balance: number;
-    isPremium: boolean;
-    premiumExpires: number;
-    password?: string;
-    created_at: string;
-    telegram_connected: boolean;
-    profile_information_filled: boolean;
-    coin_balance: number;
-    telegram_id: number;
+    password: string; // Made required to match schema
+    created_at: Date; // Better as Date
+    permissions: Permission;
 }
 
 const userSchema = new Schema<IUser>({
-    password: { type: String, required: true },
-    memberSince: { type: Number, index: true, default: Date.now() },
-    balance: { type: Number, default: 0 },
-    name: { type: String, },
+    name: { type: String },
     email: { type: String, index: true, required: true, unique: true },
-    phone: { type: String, index: true, required: true, unique: true },
-    isPremium: { type: Boolean, default: false },
-    premiumExpires: { type: Number, default: 0 },
-    created_at: { type: String },
-    telegram_connected: { type: Boolean, default: false },
-    profile_information_filled: { type: Boolean, default: false },
-    coin_balance: { type: Number, default: 0 },
-    telegram_id: { type: Number, default: 0 }
+    password: { type: String, required: true },
+    created_at: { type: Date, default: Date.now },
+    permissions: { type: String, enum: Object.values(Permission), required: true },
 });
 
-export const UserModel = model<IUser>("user", userSchema);
+export const UserModel = model<IUser>("User", userSchema);
