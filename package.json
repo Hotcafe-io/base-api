@@ -4,7 +4,8 @@
   "main": "src/index.ts",
   "type": "module",
   "scripts": {
-    "start": "bun src/index.ts"
+    "start": "bun src/index.ts",
+    "client": "bun scripts/index.ts"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
