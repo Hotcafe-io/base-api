@@ -1,10 +1,13 @@
 import { IFunctionDefinition } from "@/config/loader";
+import { isAuthenticated } from "@/middlewares/authenticateMiddleware";
 import { Request, Response, RequestHandler } from "express";
 import { z } from "zod";
 
 export const getReqSchema = z.object({});
 export const getResSchema = z.object({});
-export const getMiddlewares: RequestHandler[] = [];
+export const getMiddlewares: RequestHandler[] = [
+    isAuthenticated
+];
 export async function getFn(req: Request, res: Response): Promise<void> {
     try {
         const { email } = req.user!
